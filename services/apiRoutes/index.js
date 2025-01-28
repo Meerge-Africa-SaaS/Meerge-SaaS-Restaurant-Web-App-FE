@@ -4,5 +4,8 @@ export const routes = {
   restaurantVerifyMail:()=> "/api/authenticate/auth-api/verify-email",
   signup:()=>"/api/authenticate/auth-api/owner-signup",
   logout:()=> "/api/authenticate/auth-api/logout",
-  resendEmail:()=> "/api/authenticate/auth-api/resend-emailcode"
+  resendEmail:()=> "/api/authenticate/auth-api/resend-emailcode",
+  googleAuth:()=>"",
+  facebookAuth:()=>"",
+
 };
