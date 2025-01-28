@@ -2,10 +2,21 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { useResendEmail } from "@/services/auth";
 
 const EmailVerificationPage = () => {
   const userEmail =localStorage.getItem("email")
   const email = userEmail; 
+  const {resendEmaiError, resendEmaiIsLoading, resendEmaiPayload,resendEmailData} =useResendEmail();
+  const handleResendEmail =()=>{
+    if(userEmail!==""){
+      const payload ={
+        email: email,
+        is_mobile: true
+      }
+      resendEmaiPayload(payload)
+    }
+  }
 
   return (
     <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-xl">
@@ -47,7 +58,7 @@ const EmailVerificationPage = () => {
           <div className="text-sm text-gray-600">
             Didn&apos;t get the email? Just click below
           </div>
-          <Button variant="default" className="w-full !mb-4">
+          <Button variant="default" className="w-full !mb-4" onClick={handleResendEmail}>
             Resend Email
           </Button>
         </div>

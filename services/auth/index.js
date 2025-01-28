@@ -110,3 +110,21 @@ export const useLoginWithPhoneNumber = (handleSuccess) => {
     loginWithPhoneNumberPayload: (requestPayload) => mutate(requestPayload),
   };
 };
+
+export const useResendEmail =(handleSuccess)=>{
+  const { data, error, isPending, mutate } = useMutateItem({
+    mutationFn: (payload) => httpService.postDataWithoutToken(payload, routes.resendEmail()),
+    onSuccess: (requestParams) => {
+      const resData = requestParams?.data || {};
+      console.log(requestParams?.data);
+      handleSuccess(resData);
+    },
+  });
+
+  return {
+    resendEmailData: data,
+    resendEmaiError: ErrorHandler(error),
+    resendEmaiIsLoading: isPending,
+    resendEmaiPayload: (requestPayload) => mutate(requestPayload),
+  };
+}

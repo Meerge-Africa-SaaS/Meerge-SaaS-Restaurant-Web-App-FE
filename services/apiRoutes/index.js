@@ -3,5 +3,6 @@ export const routes = {
   loginWithPhonenumber:()=> "/api/authenticate/auth-api/mobile-phone-signin",
   restaurantVerifyMail:()=> "/api/authenticate/auth-api/verify-email",
   signup:()=>"/api/authenticate/auth-api/owner-signup",
-  logout:()=> "/api/authenticate/auth-api/logout"
+  logout:()=> "/api/authenticate/auth-api/logout",
+  resendEmail:()=> "/api/authenticate/auth-api/resend-emailcode"
 };
