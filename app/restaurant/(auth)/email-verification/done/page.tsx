@@ -2,19 +2,26 @@
 import React from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import Logo from "@/components/ui/logo";
+import { useRouter } from "next/navigation";
 
 const EmailVerificationSuccessPage = () => {
+  const router = useRouter()
+  const goToSignin =()=>{
+    router.replace("/restaurant/login")
+  }
   return (
     <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-xl">
       <div className="w-full max-w-md flex flex-col items-center text-center space-y-6 mx-auto">
         {/* Logo */}
         <div className="flex flex-col items-center mb-8">
-          <div className="flex items-center gap-2 mb-4">
+          {/* <div className="flex items-center gap-2 mb-4">
             <p className="text-3xl font-semibold space-x-1">
               <span className="text-secondary">Meerge</span>
               <span className="text-primary">Africa</span>
             </p>
-          </div>
+          </div> */}
+          <Logo/>
         </div>
 
         {/* Email Icon */}
@@ -33,7 +40,7 @@ const EmailVerificationSuccessPage = () => {
           </p>
         </div>
 
-        <Button variant="default" className="w-full !mb-10 !mt-4">
+        <Button variant="default" className="w-full !mb-10 !mt-4" onClick={goToSignin}>
           Continue
         </Button>
       </div>

@@ -15,6 +15,7 @@ import { PasswordInput } from "@/components/ui/password";
 import { useZodForm } from "@/lib/hooks/form";
 import { InviteAcceptanceSchema } from "@/lib/schema/authentication";
 import { useRouter } from "next/navigation";
+import Logo from "@/components/ui/logo";
 
 const InviteAcceptanceForm = () => {
   const form = useZodForm({
@@ -37,12 +38,13 @@ const InviteAcceptanceForm = () => {
     <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-xl">
       {/* Logo and Header */}
       <div className="flex flex-col items-center mb-8">
-        <div className="flex items-center gap-2 mb-4">
+        {/* <div className="flex items-center gap-2 mb-4">
           <p className="text-3xl font-semibold space-x-1">
             <span className="text-secondary">Meerge</span>
             <span className="text-primary">Africa</span>
           </p>
-        </div>
+        </div> */}
+        <Logo/>
         <h1 className="text-2xl font-semibold mb-2">You were sent an Invite</h1>
         <p className="text-orange-500 text-sm">
           Enter your credentials to accept invite

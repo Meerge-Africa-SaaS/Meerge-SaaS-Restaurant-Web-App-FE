@@ -29,18 +29,32 @@ export const BasicInfoSchema = z.object({
   business_registration_status: z.enum(["registered", "unregistered"]),
 });
 
-// Schema for Step 2a (Registered Business)
 export const RegisteredBusinessSchema = z.object({
   business_registration_number: z
     .string()
     .min(1, "Registration number is required"),
-  business_document: z.optional(z.instanceof(File)),
-  premises_license: z.optional(z.instanceof(File)),
+  business_document: z
+    .any()
+    .optional()
+    .refine((file) => file instanceof File, {
+      message: "Business document must be a valid file",
+    }),
+  premises_license: z
+    .any()
+    .optional()
+    .refine((file) => file instanceof File, {
+      message: "Premises license must be a valid file",
+    }),
 });
 
 // Schema for Step 2b (Unregistered Business)
 export const UnregisteredBusinessSchema = z.object({
-  premises_license: z.optional(z.instanceof(File)),
+  premises_license: z
+    .any()
+    .optional()
+    .refine((file) => file instanceof File, {
+      message: "Premises license must be a valid file",
+    }),
 });
 
 export const changePasswordSchema = z
