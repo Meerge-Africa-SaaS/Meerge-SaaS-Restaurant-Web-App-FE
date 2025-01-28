@@ -2,7 +2,14 @@
 import { useZodForm } from "@/lib/hooks/form";
 import { RestaurantSignupFormSchema } from "@/lib/zod/forms/signup";
 import { Button } from "@/components/ui/button";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { PhoneInput } from "@/components/ui/phone";
 import { PasswordInput } from "@/components/ui/password";
@@ -19,8 +26,14 @@ export function RestaurantSignupForm() {
   const form = useZodForm({
     schema: RestaurantSignupFormSchema,
   });
-
-  const { signupData, signupError, signupIsLoading, signupPayload ,signupIsSuccess} = useSignup();
+  const [isChecked, setIsChecked]= useState(false);
+  const {
+    signupData,
+    signupError,
+    signupIsLoading,
+    signupPayload,
+    signupIsSuccess,
+  } = useSignup();
   const {
     verifyEmailData,
     verifyEmailError,
@@ -30,17 +43,23 @@ export function RestaurantSignupForm() {
   const router = useRouter();
 
   const handleSubmit = form.handleSubmit(async (data) => {
-    const extendedData = {
-      first_name: data.firstName,
-      last_name: data.lastName,
-      email: data.email,
-      phone_number: `+234${data.phoneNumber}`,
-      password: data.password,
-      actor_type: "restaurantowner",
-      is_mobile: false,
-    };
-
-    signupPayload(extendedData);
+    if (!isChecked) {
+      alert("Please accept the terms and conditions.");
+      return;
+    }
+    if(isChecked){
+      const extendedData = {
+        first_name: data.firstName,
+        last_name: data.lastName,
+        email: data.email,
+        phone_number: `+234${data.phoneNumber}`,
+        password: data.password,
+        actor_type: "restaurantowner",
+        is_mobile: false,
+      };
+  
+      signupPayload(extendedData);
+    }
   });
 
   const verifyMail = () => {
@@ -53,18 +72,29 @@ export function RestaurantSignupForm() {
 
   useEffect(() => {
     if (signupError === "handleSuccess is not a function") {
-      verifyMail(); 
-      localStorage.clear()
-      Storage.set("email",form.getValues("email"))
-      window.location.href = "/restaurant/email-verification"; 
+      verifyMail();
+      localStorage.clear();
+      Storage.set("email", form.getValues("email"));
+      window.location.href = "/restaurant/email-verification";
     }
   }, [!signupIsLoading]);
 
+  const handleChecks = (checked: boolean) => {
+    setIsChecked(checked);
+  };
 
   return (
     <Form {...form}>
       <form onSubmit={handleSubmit} className="space-y-4 group">
-      {signupError ? (<div className="text-center text-red-500 font-semibold">{signupError==="handleSuccess is not a function" ? "":signupError}</div>):""}
+        {signupError ? (
+          <div className="text-center text-red-500 font-semibold">
+            {signupError === "handleSuccess is not a function"
+              ? ""
+              : signupError}
+          </div>
+        ) : (
+          ""
+        )}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <FormField
             control={form.control}
@@ -143,7 +173,12 @@ export function RestaurantSignupForm() {
           )}
         />
         <FormItem className="items-top flex space-x-2 space-y-0">
-          <Checkbox id="terms" className="data-[state=checked]:bg-primary" />
+          <Checkbox
+            id="terms"
+            className="data-[state=checked]:bg-primary"
+            onCheckedChange={handleChecks
+            }
+          />
           <FormLabel className="text-xs text-slate-700" htmlFor="terms">
             By clicking, you accept our Primary Services Agreement, User Terms
             of Service, and Merge Africa Supplemental Terms. For more details,

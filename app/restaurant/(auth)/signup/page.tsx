@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { RestaurantSignupForm } from "@/components/auth/signup-form";
 import { Metadata } from "next";
+import Logo from "@/components/ui/logo";
 
 export const metadata: Metadata = {
   title: "Signup - Meerge Africa",
@@ -14,12 +15,13 @@ const SignUpForm = () => {
     <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-xl">
       {/* Logo and Header */}
       <div className="flex flex-col items-center mb-8">
-        <div className="flex items-center gap-2 mb-4">
+        {/* <div className="flex items-center gap-2 mb-4">
           <p className="text-3xl font-semibold space-x-1">
             <span className="text-secondary">Meerge</span>
             <span className="text-primary">Africa</span>
           </p>
-        </div>
+        </div> */}
+        <Logo/>
         <h1 className="text-2xl font-bold mb-2">Let&apos;s get you started</h1>
         <p className="text-gray-600 text-center">
           Enter your credentials to get started

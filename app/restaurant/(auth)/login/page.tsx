@@ -178,7 +178,7 @@ const LoginForm = () => {
         </Button>
         <Button type="button" variant="outline" className="flex-1" size="lg">
           <Image
-            src="/assets/svgs/facebook.svg"
+            src="/assets/svgs/facebook-icon.svg"
             alt="Facebook logo"
             width={20}
             height={20}
