@@ -1,13 +1,16 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useResendEmail } from "@/services/auth";
+import { useRouter } from "next/navigation";
 
 const EmailVerificationPage = () => {
-  const userEmail =localStorage.getItem("email")
+  const router = useRouter()
+  const userEmail =localStorage?.getItem("email")
   const email = userEmail; 
   const {resendEmaiError, resendEmaiIsLoading, resendEmaiPayload,resendEmailData} =useResendEmail();
+  const [verifyClicked,setVerifyClicked]= useState(false)
   const handleResendEmail =()=>{
     if(userEmail!==""){
       const payload ={
@@ -16,7 +19,16 @@ const EmailVerificationPage = () => {
       }
       resendEmaiPayload(payload)
     }
+    setVerifyClicked(true)
   }
+  useEffect(()=>{
+    if(resendEmaiError === "handleSuccess is not a function" && verifyClicked){
+      router.replace("/restaurant/email-verification/done")
+    }
+    if(resendEmaiError !== "handleSuccess is not a function" && verifyClicked){
+      router.replace("/restaurant/email-verification/failed")
+    }
+  },[!resendEmaiIsLoading])
 
   return (
     <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-xl">

@@ -15,7 +15,7 @@ interface ProtectedRouteProps {
   
     useEffect(() => {
       setIsMounted(true); 
-      const accessToken = localStorage.getItem('accessToken');
+      const accessToken = localStorage?.getItem('accessToken');
   
       if (!accessToken) {
         router.replace('/restaurant/login'); 
