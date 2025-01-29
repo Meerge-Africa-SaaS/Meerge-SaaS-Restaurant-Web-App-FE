@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { RestaurantSignupForm } from "@/components/auth/signup-form";
 import { Metadata } from "next";
 import Logo from "@/components/ui/logo";
+import SigninWithFacebook from "@/components/btns/signin-with-fb";
+import SigninWithGoogleBtn from "@/components/btns/signIn-with-google";
 
 export const metadata: Metadata = {
   title: "Signup - Meerge Africa",
@@ -45,34 +47,8 @@ const SignUpForm = () => {
         </div>
 
         <div className="flex gap-4 flex-wrap">
-          <Button
-            type="button"
-            variant={"outline"}
-            className="flex-1"
-            size={"lg"}
-          >
-            <Image
-              src="/assets/svgs/facebook.svg"
-              alt="Facebook logo"
-              width={20}
-              height={20}
-            />
-            Sign in with Facebook
-          </Button>
-          <Button
-            type="button"
-            variant={"outline"}
-            className="flex-1"
-            size={"lg"}
-          >
-            <Image
-              src="/assets/svgs/google.svg"
-              alt="Google logo"
-              width={20}
-              height={20}
-            />
-            Sign in with Google
-          </Button>
+          <SigninWithFacebook/>
+          <SigninWithGoogleBtn/>
         </div>
       </div>
       {/* Footer */}
