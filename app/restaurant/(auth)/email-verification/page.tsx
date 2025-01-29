@@ -5,11 +5,15 @@ import { Button } from "@/components/ui/button";
 import { useResendEmail } from "@/services/auth";
 import { useRouter } from "next/navigation";
 import Logo from "@/components/ui/logo";
-
+import {messages} from "@/lib/messages"
+import LoginSpinner from "@/components/loading/login-spinner";
 const EmailVerificationPage = () => {
   const router = useRouter();
-  const [userEmail, setUserEmail] = useState<string | null>(null);
-  const { resendEmaiError, resendEmaiIsLoading, resendEmaiPayload, resendEmailData } = useResendEmail();
+  const [userEmail, setUserEmail] = useState<string | null>("null");
+  const [message, setMessage] = useState("")
+  const { resendEmaiError, resendEmaiIsLoading, resendEmaiPayload } = useResendEmail((res:any)=>{
+    setMessage(res?.message)
+  });
   const [verifyClicked, setVerifyClicked] = useState(false);
 
   useEffect(() => {
@@ -29,7 +33,7 @@ const EmailVerificationPage = () => {
   };
 
   useEffect(() => {
-    if (resendEmaiError === "handleSuccess is not a function" && verifyClicked) {
+    if (message === messages.EMAIL_VERIFIED && verifyClicked) {
       router.replace("/restaurant/email-verification/done");
     }
     // if (resendEmaiError !== "handleSuccess is not a function" && verifyClicked) {
@@ -79,7 +83,7 @@ const EmailVerificationPage = () => {
             Didn&apos;t get the email? Just click below
           </div>
           <Button variant="default" className="w-full !mb-4" onClick={handleResendEmail}>
-            Resend Email
+           {resendEmaiIsLoading?(<LoginSpinner/>) :"Resend Email"}
           </Button>
         </div>
 

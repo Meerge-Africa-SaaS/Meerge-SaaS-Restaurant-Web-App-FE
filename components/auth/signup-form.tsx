@@ -21,12 +21,15 @@ import { useRouter } from "next/navigation";
 import LoginSpinner from "../loading/login-spinner";
 import { generateOtp } from "@/lib/utils";
 import Storage from "@/services/storage";
+import { messages } from "@/lib/messages";
 
 export function RestaurantSignupForm() {
   const form = useZodForm({
     schema: RestaurantSignupFormSchema,
   });
   const [isChecked, setIsChecked]= useState(false);
+  const [phoneSignUpMessage, setPhoneSignupMessage]= useState("")
+  const [emailSignupMessage, setEmailSignupMessage]= useState("")
   const {
     signupData,
     signupError,
@@ -35,11 +38,12 @@ export function RestaurantSignupForm() {
     signupIsSuccess,
   } = useSignup();
   const {
-    verifyEmailData,
     verifyEmailError,
     verifyEmailIsLoading,
     verifyEmailPayload,
-  } = useVerifyEmail();
+  } = useVerifyEmail((res: any)=>{
+    setEmailSignupMessage(res?.message)
+  });
   const router = useRouter();
 
   const handleSubmit = form.handleSubmit(async (data) => {
@@ -71,7 +75,7 @@ export function RestaurantSignupForm() {
   };
 
   useEffect(() => {
-    if (signupError === "handleSuccess is not a function") {
+    if (phoneSignUpMessage || emailSignupMessage === messages.REGISTRATION_SUCCESS) {
       verifyMail();
       localStorage.clear();
       Storage.set("email", form.getValues("email"));

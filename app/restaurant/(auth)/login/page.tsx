@@ -21,6 +21,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import Logo from "@/components/ui/logo";
 import LoginSpinner from "@/components/loading/login-spinner";
 import AuthError from "@/components/error/authError";
+import SigninWithFacebook from "@/components/btns/signin-with-fb";
+import SigninWithGoogleBtn from "@/components/btns/signIn-with-google";
 
 const LoginForm = () => {
   const {
@@ -166,26 +168,8 @@ const LoginForm = () => {
 
       {/* Social Login Buttons */}
       <div className="flex gap-4 flex-wrap">
-        <Button type="button" variant="outline" className="flex-1" size="lg">
-          <Image
-            src="/assets/svgs/google.svg"
-            alt="Google logo"
-            width={20}
-            height={20}
-            className="mr-2"
-          />
-          Sign in with Google
-        </Button>
-        <Button type="button" variant="outline" className="flex-1" size="lg">
-          <Image
-            src="/assets/svgs/facebook-icon.svg"
-            alt="Facebook logo"
-            width={20}
-            height={20}
-            className="mr-2"
-          />
-          Sign in with Facebook
-        </Button>
+        <SigninWithFacebook/>
+        <SigninWithGoogleBtn/>
       </div>
 
       {/* Footer Links */}
